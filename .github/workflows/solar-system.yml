@@ -28,9 +28,11 @@ jobs:
           run: npm install
     
         - name: Unit Testing
+          id: unit-testing-step
           run: npm test
           
         - name: Archive Test Result
+          if: ${{ steps.unit-testing-step.outcome =='failure' || steps.unit-testing-step.outcome == 'success' }}
           uses: actions/upload-artifact@v4
           with:
             name: Mocha-Test-Result # name to the artifact zip file name
