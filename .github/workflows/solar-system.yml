@@ -32,7 +32,8 @@ jobs:
           run: npm test
           
         - name: Archive Test Result
-          if: ${{ steps.unit-testing-step.outcome =='failure' || steps.unit-testing-step.outcome == 'success' }}
+          # ${{ steps.unit-testing-step.outcome =='failure' || steps.unit-testing-step.outcome == 'success' }}
+          if: ${{ failure() || success() }}   # always()
           uses: actions/upload-artifact@v4
           with:
             name: Mocha-Test-Result # name to the artifact zip file name
