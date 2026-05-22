@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - 'feature/**'
+
 env:
     MONGO_URI: "mongodb+srv://supercluster.d83jj.mongodb.net/superData"
     MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
@@ -149,6 +150,28 @@ jobs:
            tags: |
             ${{ vars.DOCKERHUB_USERNAME}}/solor-system:${{ github.sha}} 
             ghcr.io/${{ github.repository_owner }}/solor-system:${{ github.sha}} 
+
+
+    dev-deploy:
+      needs: docker
+      runs-on: ubuntu-latest
+      
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+
+        - name: Install kubectl CLI
+          uses: azure/setup-kubectl@v4
+          with:
+            version: 'v1.26.0'
+        - name: Fetch Kubernetes cluster details
+          run: |
+            kubectl version --short
+            echo -------------------------------------------
+            kubectl get nodes
+
+
+
                
 
 
