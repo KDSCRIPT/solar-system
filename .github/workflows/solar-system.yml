@@ -154,7 +154,7 @@ jobs:
 
     dev-deploy:
       needs: docker
-      runs-on: ubuntu-latest
+      runs-on: self-hosted
       
       steps:
         - name: Checkout Repository
@@ -165,16 +165,11 @@ jobs:
           with:
             version: 'v1.26.0'
 
-        - name: Set kubeconfig
-          uses: azure/k8s-set-context@v5
-          with:
-           method: kubeconfig
-           kubeconfig: ${{ secrets.KUBECONFIG }}
-
         - name: Fetch Kubernetes cluster details
           run: |
-            kubectl version --short
+            kubectl version --client
             echo -------------------------------------------
+            kubectl config current-context
             kubectl get nodes
 
 
