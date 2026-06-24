@@ -121,7 +121,7 @@ jobs:
             wget -q -O - 127.0.0.1:3000/live | grep live
         
         - name: Docker push
-          uses: opspresso/action-docker@v0.5.0
+          uses: docker/build-push-action@v7.2.0
           with:
             context: .
             push: true
