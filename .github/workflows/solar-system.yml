@@ -13,11 +13,6 @@ env:
 
 jobs:
     unit-testing:
-        name: Dockerhub Login for pulling db image
-          uses: docker/login-action@v4.2.0
-          with:
-            username: ${{ vars.DOCKERHUB_USERNAME }}
-            password: ${{ secrets.DOCKERHUB_PASSWORD }}
         name: Unit Testing
         services:
           mongo-db:
@@ -25,7 +20,7 @@ jobs:
             ports:
               - 27017:27017
         env:
-          MONGO_URI: 'mongodb://localhost:27017/superData'
+          MONGO_URI: 'mongodb//localhost:27017/superData'
           MONGO_USERNAME: non-prod-user
           MONGO_PASSWORD: non-prod-password
         strategy:
@@ -38,6 +33,11 @@ jobs:
 
         runs-on: ${{ matrix.operating_system }}
         steps:
+        - name: Dockerhub Login for pulling non prod DB image
+          uses: docker/login-action@v4.2.0
+          with:
+            username: ${{ vars.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_PASSWORD }}
         - name: Checkout Repository
           uses: actions/checkout@v7.0.0
 
