@@ -78,10 +78,10 @@ jobs:
         - name: Checkout Repository
           uses: actions/checkout@v7.0.0
         
-        - name: Setup NodeJS Version - 18
-          uses: actions/setup-node@v6.4.0
-          with:
-            node-version: 18
+        # - name: Setup NodeJS Version - 18
+        #   uses: actions/setup-node@v6.4.0
+        #   with:
+        #     node-version: 18
         
         - name: Cache NPM Dependencies
           uses: actions/cache@v6.0.0
@@ -160,4 +160,25 @@ jobs:
             tags: |
               ${{ vars.DOCKERHUB_USERNAME }}/solar-system:${{ github.sha }}
               ghcr.io/${{ env.OWNER_LC }}/solar-system:${{ github.sha }}
-          
+    
+    dev-deploy:
+      needs: docker
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v7.0.0
+        
+        - name: Install Kubectl CLI
+          uses: Azure/setup-kubectl@v5.1.0
+
+        - name: Set Kubeconfig
+          uses: Azure/k8s-set-context@v5.0.1
+          with:
+            method: kubeconfig
+            kubeconfig: ${{ secrets.KUBECONFIG }}
+
+        - name: Fetch Kubernetes Cluster Details
+          run: |
+            kubectl version --short
+            echo ----------------------
+            kubectl get nodes
