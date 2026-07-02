@@ -347,7 +347,7 @@ jobs:
     prod-integration-testing:
       if: github.ref == 'ref/heads/main'
       name: Prod Integration Testing
-      needs: docker
+      needs: prod-deploy
       runs-on:
         - self-hosted
         - linux
