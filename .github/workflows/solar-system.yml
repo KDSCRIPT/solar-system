@@ -247,10 +247,10 @@ jobs:
         - self-hosted
         - linux
       steps:
-        -name: Test URL Output using CURL and JQ
-         env:
-          URL: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
-         run: |
-          echo "URL: $URL"
-          echo "-----------------------------------------"
-          curl https://$URL/live -s -k | jq -r .status | grep -i live
+        - name: Test URL Output using CURL and JQ
+          env:
+            URL: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
+          run: |
+            echo "URL: $URL"
+            echo "-----------------------------------------"
+            curl https://$URL/live -s -k | jq -r .status | grep -i live
