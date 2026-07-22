@@ -99,7 +99,7 @@ jobs:
         - name: Archive Test Result
           uses: actions/upload-artifact@v7.0.1
           with:
-            name: Code-Coverage-Result
+            name: Code-overage-Result
             path: coverage
             retention-days: 5
     
@@ -223,7 +223,7 @@ jobs:
           run: |
             echo "URL: $URL"
             echo "-----------------------------------------"
-            curl https://$URL/live -s -k | jq -r .status | grep -i live
+            curl https://$URL:300443/live -s -k | jq -r .status | grep -i live
     
     prod-deploy:
       if: github.ref == 'ref/heads/main'
