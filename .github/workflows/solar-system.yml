@@ -223,7 +223,7 @@ jobs:
           run: |
             echo "URL: $URL"
             echo "-----------------------------------------"
-            curl https://$URL:300443/live -s -k | jq -r .status | grep -i live
+            curl https://$URL/live -s -k | jq -r .status | grep -i live
     
     prod-deploy:
       if: github.ref == 'ref/heads/main'
