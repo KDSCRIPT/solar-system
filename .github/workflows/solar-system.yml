@@ -99,7 +99,7 @@ jobs:
         - name: Archive Test Result
           uses: actions/upload-artifact@v7.0.1
           with:
-            name: Code-overage-Result
+            name: Code-Coverage-Result
             path: coverage
             retention-days: 5
     
