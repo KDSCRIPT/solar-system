@@ -1,0 +1,17 @@
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  pr-action:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Post GIF Comment
+        uses: KDSCRIPT/docker-action-pr-action-giphy-comment@main
+        with:
+          github-token: ${{ secrets.GHA_TOKEN }}
+          giphy-api-key: ${{ secrets.GIPHY_API_KEY }}
